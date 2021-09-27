@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 import './styles/App.scss';
 
@@ -17,6 +17,28 @@ function App() {
   const [botChoice, setBotChoice] = useState(null);
   const [score, setScore] = useState(0);
 
+  const winners = {
+    paper: 'rock',
+    rock: 'scissors',
+    scissors: 'paper'
+  }
+
+  useEffect(() => {
+    const winners = {
+      paper: 'rock',
+      rock: 'scissors',
+      scissors: 'paper'
+    }
+
+    if(botChoice !== null && myChoice !== null && myChoice !== botChoice) {
+      if(winners[myChoice] === botChoice) {
+        setScore(s => s + 1)
+      } else {
+        setScore(s => s - 1)
+      }
+    }
+  }, [botChoice, myChoice])
+
   const contextValue = {
     myChoice,
     setMyChoice,
@@ -27,6 +49,7 @@ function App() {
     Rock,
     Paper,
     Scissors,
+    winners
   }
 
   return (

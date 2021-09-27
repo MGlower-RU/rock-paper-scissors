@@ -2,13 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { GameContext } from '../App';
 
 export default function Game() {
-  const { myChoice, setMyChoice, botChoice, setBotChoice, score, setScore } = useContext(GameContext)
-
-  const winners = {
-    paper: 'rock',
-    rock: 'scissors',
-    scissors: 'paper'
-  }
+  const { myChoice, setMyChoice, botChoice, setBotChoice, winners } = useContext(GameContext)
 
   function handleTry(e) {
     e.preventDefault();
@@ -26,15 +20,7 @@ export default function Game() {
     } else {
       result.style.color = 'rgb(231, 94, 94)';
     }
-
-    if(botChoice && myChoice !== botChoice) {
-      if(winners[myChoice] === botChoice) {
-        setScore(score + 1)
-      } else {
-        setScore(score - 1)
-      }
-    }
-  }, [botChoice])
+  }, [botChoice, myChoice, winners])
 
   return (
     <div className="game__wrapper">
